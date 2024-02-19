@@ -1,9 +1,9 @@
 slint::slint! {
     component MemoryTile inherits Rectangle {
         callback clicked;
-        in property <bool> open_curtain;
+        in-out property <bool> open_curtain;
         in property <bool> solved;
-        in property <image> icon;
+        in property <image> icon: @image-url("icons/bus.png");
 
         height: 64px;
         width: 64px;
@@ -38,6 +38,7 @@ slint::slint! {
         TouchArea {
             clicked => {
                 // Delegate to the user of this element
+                root.open_curtain = !root.open_curtain;
                 root.clicked();
             }
         }
@@ -46,9 +47,6 @@ slint::slint! {
     export component MainWindow inherits Window {
         MemoryTile {
             icon: @image-url("icons/bus.png");
-            clicked => {
-                self.open_curtain = !self.open_curtain;
-            }
         }
     }
 }
