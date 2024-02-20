@@ -1,4 +1,6 @@
-slint::include_modules!();
+slint::slint! {
+    import { MainWindow } from "ui/MainWindow.slint";
+}
 
 fn main() -> Result<(), slint::PlatformError> {
     use slint::Model;
