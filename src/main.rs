@@ -11,15 +11,20 @@ slint::slint! {
         in property <bool> solved;
         in property <image> icon: @image-url("icons/bus.png");
 
+        border-radius: 8px;
+        clip: true;
         height: 64px;
         width: 64px;
         background: solved ? #34CE57 : #3960D5;
         animate background { duration: 800ms; }
 
         Image {
+            property <length> pad: 5px;
             source: icon;
-            width: parent.width;
-            height: parent.height;
+            x: self.pad;
+            y: self.pad;
+            width: parent.width - 2 * self.pad;
+            height: parent.height - 2 * self.pad;
         }
 
         // Left curtain
