@@ -33,6 +33,13 @@ component MemoryTile inherits Rectangle {
         width: open_curtain ? 0px : (parent.width / 2);
         height: parent.height;
         animate width { duration: 250ms; easing: ease-in; }
+
+        Image {
+            width: parent.width;
+            height: parent.height;
+            source: @image-url("icons/tile_logo.png");
+            source-clip-width: 64;
+        }
     }
 
     // Right curtain
@@ -43,6 +50,14 @@ component MemoryTile inherits Rectangle {
         height: parent.height;
         animate width { duration: 250ms; easing: ease-in; }
         animate x { duration: 250ms; easing: ease-in; }
+
+        Image {
+            width: parent.width;
+            height: parent.height;
+            source: @image-url("icons/tile_logo.png");
+            source-clip-x: 64;
+            source-clip-width: 64;
+        }
     }
 
     TouchArea {
