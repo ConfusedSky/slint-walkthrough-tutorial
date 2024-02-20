@@ -103,7 +103,7 @@ export component MainWindow inherits Window {
                 solved: tile.solved;
                 clicked => {
                     if (!root.disable_tiles) {
-                        memory_tiles[row * 4 + column].image-visible = !tile.image-visible;
+                        memory_tiles[row * 4 + column].image-visible = true;
                         root.check_if_pair_solved();
                     }
                 }
