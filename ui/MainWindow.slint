@@ -29,10 +29,10 @@ component MemoryTile inherits Rectangle {
     // Left curtain
     Rectangle {
         background: #193076;
-        x: 0px;
-        width: open_curtain ? 0px : (parent.width / 2);
+        x: open_curtain ? -(parent.width / 2) : 0;
+        width: parent.width / 2;
         height: parent.height;
-        animate width { duration: 250ms; easing: ease-in; }
+        animate x { duration: 250ms; easing: ease-in; }
 
         Image {
             width: parent.width;
@@ -46,9 +46,8 @@ component MemoryTile inherits Rectangle {
     Rectangle {
         background: #193076;
         x: open_curtain ? parent.width : (parent.width / 2);
-        width: open_curtain ? 0px : (parent.width / 2);
+        width: parent.width / 2;
         height: parent.height;
-        animate width { duration: 250ms; easing: ease-in; }
         animate x { duration: 250ms; easing: ease-in; }
 
         Image {
@@ -103,7 +102,7 @@ export component MainWindow inherits Window {
                 solved: tile.solved;
                 clicked => {
                     if (!root.disable_tiles) {
-                        memory_tiles[row * 4 + column].image-visible = true;
+                        memory_tiles[row * 4 + column].image-visible = !tile.image-visible;
                         root.check_if_pair_solved();
                     }
                 }
