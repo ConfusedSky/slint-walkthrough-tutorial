@@ -17,6 +17,21 @@ component MemoryTile inherits Rectangle {
     background: solved ? #34CE57 : #3960D5;
     animate background { duration: 800ms; }
 
+    states [
+        open when open_curtain : {
+            left_curtain.x: -(root.width / 2);
+            right_curtain.x: root.width;
+            in {
+                animate left_curtain.x { duration: 250ms; easing: ease-in; }
+                animate right_curtain.x { duration: 250ms; easing: ease-in; }
+            }
+            out {
+                animate left_curtain.x { duration: 250ms; easing: ease-in; }
+                animate right_curtain.x { duration: 250ms; easing: ease-in; }
+            }
+        }
+    ]
+
     Image {
         property <length> pad: 5px;
         source: icon;
@@ -26,13 +41,11 @@ component MemoryTile inherits Rectangle {
         height: parent.height - 2 * self.pad;
     }
 
-    // Left curtain
-    Rectangle {
+    left_curtain := Rectangle {
         background: #193076;
-        x: open_curtain ? -(parent.width / 2) : 0;
+        x: 0;
         width: parent.width / 2;
         height: parent.height;
-        animate x { duration: 250ms; easing: ease-in; }
 
         Image {
             width: parent.width;
@@ -42,13 +55,11 @@ component MemoryTile inherits Rectangle {
         }
     }
 
-    // Right curtain
-    Rectangle {
+    right_curtain := Rectangle {
         background: #193076;
-        x: open_curtain ? parent.width : (parent.width / 2);
+        x: parent.width / 2;
         width: parent.width / 2;
         height: parent.height;
-        animate x { duration: 250ms; easing: ease-in; }
 
         Image {
             width: parent.width;
