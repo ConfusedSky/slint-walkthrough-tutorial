@@ -98,24 +98,6 @@ export component MainWindow inherits Window {
     ];
 
     VerticalLayout {
-        alignment: center;
-
-        Rectangle {
-            height: 100px;
-            background: #327832;
-            opacity: complete ? 1 : 0;
-                 
-            animate opacity { duration: 500ms; easing: ease-in; }
-
-            GridLayout {
-                Text {
-                    text: "You Win!";
-                }
-            }
-        }
-    }
-
-    VerticalLayout {
         padding: 20px;
         spacing: 5px;
         alignment: space-between;
@@ -139,4 +121,24 @@ export component MainWindow inherits Window {
             }
         }
     }
+
+    Rectangle {
+        height: 100px;
+        opacity: complete ? 1 : 0;
+                
+        animate opacity { duration: 500ms; easing: ease-in; }
+
+        Rectangle {
+            opacity: 0.8;
+            background: #327832;
+        }
+
+        Text {
+            horizontal-alignment: center;
+            vertical-alignment: center;
+            font-size: 50px;
+            text: "You Win!";
+        }
+    }
+
 }
