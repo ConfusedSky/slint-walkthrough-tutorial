@@ -22,9 +22,12 @@ fn main() -> Result<(), slint::PlatformError> {
     ui.set_memory_tiles(tiles_model.clone().into());
 
     let ui_weak = ui.as_weak();
+    let mut solved_tiles = 0;
     ui.on_check_if_pair_solved(move || {
-        let mut flipped_tiles =
-            tiles_model.iter().enumerate().filter(|(_, tile)| tile.image_visible && !tile.solved);
+        let mut flipped_tiles = tiles_model
+            .iter()
+            .enumerate()
+            .filter(|(_, tile)| tile.image_visible && !tile.solved);
 
         if let (Some((t1_idx, mut t1)), Some((t2_idx, mut t2))) =
             (flipped_tiles.next(), flipped_tiles.next())
@@ -35,12 +38,18 @@ fn main() -> Result<(), slint::PlatformError> {
                 tiles_model.set_row_data(t1_idx, t1);
                 t2.solved = true;
                 tiles_model.set_row_data(t2_idx, t2);
+                solved_tiles = solved_tiles + 2;
+
+                if solved_tiles >= tiles_model.iter().len() {
+                    let ui = ui_weak.unwrap();
+                    ui.set_complete(true);
+                }
             } else {
-                let main_window = ui_weak.unwrap();
-                main_window.set_disable_tiles(true);
+                let ui = ui_weak.unwrap();
+                ui.set_disable_tiles(true);
                 let tiles_model = tiles_model.clone();
                 slint::Timer::single_shot(std::time::Duration::from_secs(1), move || {
-                    main_window.set_disable_tiles(false);
+                    ui.set_disable_tiles(false);
                     t1.image_visible = false;
                     tiles_model.set_row_data(t1_idx, t1);
                     t2.image_visible = false;
